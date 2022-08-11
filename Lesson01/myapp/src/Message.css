@@ -1,0 +1,6 @@
+.Message {
+    background-color: rgb(3, 80, 69);
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+}
