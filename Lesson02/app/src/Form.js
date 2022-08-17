@@ -8,7 +8,7 @@ function Form({setMessageList})
     {
         if (post.author === "" || post.message ==="") {return}
         setMessageList(prev => [...prev, post])
-        setPost({author:"", message:"", sender:''})
+        setPost({author:"", message:"", sender:'human'})
     }
 
     const changeAuthor = (e)=>
