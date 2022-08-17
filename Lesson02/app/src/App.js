@@ -1,5 +1,6 @@
 import './App.css';
 import Form from './Form'
+import Message from './Message'
 import { useState, useEffect } from "react";
 
 function App() {
@@ -23,10 +24,9 @@ function App() {
 
   return (
     <div className="App">
-      {messageList.map((item,index)=><div key={index}>{item.author}:{item.message}</div>)}
-      {
-        messageList.length > 0 && <hr/>
-      }
+      <div className='Messages'>
+        {messageList.map((item,index)=><Message author={item.author} message={item.message} sender={item.sender}/>)}        
+      </div>
       <Form setMessageList={setMessageList}/>
     </div>
   );

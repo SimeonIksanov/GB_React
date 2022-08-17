@@ -1,3 +1,4 @@
+import './Form.css';
 import {useState} from "react";
 
 function Form({setMessageList})
@@ -8,7 +9,7 @@ function Form({setMessageList})
     {
         if (post.author === "" || post.message ==="") {return}
         setMessageList(prev => [...prev, post])
-        setPost({author:"", message:"", sender:'human'})
+        setPost(prev=>({...prev, message:""}))
     }
 
     const changeAuthor = (e)=>
@@ -23,7 +24,7 @@ function Form({setMessageList})
             <input onChange={changeAuthor} value={post.author}type="text"></input>
             <label >Сообщение</label>
             <input onChange={changeMessage} value={post.message}type="text"></input>
-            <button onClick={saveMessage}>send</button>
+            <button onClick={saveMessage} >Отправить</button>
         </div>
       );
 }
