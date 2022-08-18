@@ -1,0 +1,18 @@
+.Form
+{
+  margin: 30px 0px;
+  align-items: center;
+  justify-content: center;
+  font-size:medium;
+}
+.Form label
+{
+  display: block;
+  margin: 0px 10px;
+}
+.Form button
+{
+  display: block;
+  margin: 10px 0px;
+  width:100%
+}
