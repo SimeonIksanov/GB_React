@@ -1,15 +1,24 @@
 import './Form.css';
-import {useState} from "react";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import {useState , useRef, useEffect} from "react";
 
 function Form({setMessageList})
 {
     const [post, setPost] = useState({author:"", message:"", sender:'human'})
-    
+    const textFieldRef = useRef(null);
+
+    useEffect(
+        ()=>{textFieldRef.current?.focus()},
+        []
+    )
+
     const saveMessage = (e)=>
     {
         if (post.author === "" || post.message ==="") {return}
         setMessageList(prev => [...prev, post])
         setPost(prev=>({...prev, message:""}))
+        textFieldRef.current?.focus()
     }
 
     const changeAuthor = (e)=>
@@ -20,11 +29,24 @@ function Form({setMessageList})
 
     return (
         <div className="Form">
-            <label >Автор</label>
-            <input onChange={changeAuthor} value={post.author}type="text"></input>
-            <label >Сообщение</label>
-            <input onChange={changeMessage} value={post.message}type="text"></input>
-            <button onClick={saveMessage} >Отправить</button>
+            <TextField
+                id="outlined-name"
+                label="Имя"
+                value={post.author}
+                onChange={changeAuthor}
+                size="small"
+                color="success"
+            />
+            <TextField
+                id="outlined-name"
+                label="Сообщение"
+                value={post.message}
+                onChange={changeMessage}
+                size="small"
+                //autoFocus={true}
+                inputRef={textFieldRef}
+            />
+            <Button onClick={saveMessage} variant="outlined" size="small">Отправить</Button>
         </div>
       );
 }
