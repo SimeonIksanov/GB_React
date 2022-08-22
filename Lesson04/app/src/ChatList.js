@@ -2,24 +2,32 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
-function ChatList({chatList})
+function ChatList({chats, chatId})
 {
     return (
         <div className='ChatList'>
             Chat List
             <List>
-                {chatList.map((e,i)=>
-                (
-                <ListItem disablePadding key={i}>
-                <ListItemButton>
-                    <ListItemText>
-                    {e.name}
-                    </ListItemText>
-                </ListItemButton>
-                </ListItem>
-                ))}
+                {Object.keys(chats).map((id, i) =>
+                    (
+                        <ListItem disablePadding key={i}>
+                            <ListItemButton>
+                                <ListItemText>
+                                    <Link to={`/chats/${id}`}>
+                                        <b style={{ color: id === chatId ? "#000000" : "grey" }}>
+                                            {chats[id].name}
+                                        </b>
+                                    </Link>
+                                </ListItemText>
+                            </ListItemButton>
+                            
+                        </ListItem>
+                    )
+                )}
             </List>
         </div>
       );

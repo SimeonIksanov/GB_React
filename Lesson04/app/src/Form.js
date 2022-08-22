@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useState , useRef, useEffect} from "react";
 
-function Form({setMessageList})
+function Form({chats, chatId, setChats})
 {
     const [post, setPost] = useState({author:"", message:"", sender:'human'})
     const textFieldRef = useRef(null);
@@ -16,7 +16,11 @@ function Form({setMessageList})
     const saveMessage = (e)=>
     {
         if (post.author === "" || post.message ==="") {return}
-        setMessageList(prev => [...prev, post])
+
+        const newMessages = [...chats[chatId].messages, {"text":post.message, "author":post.author, "sender":"human"} ]
+        const newChat = {...chats[chatId], messages: newMessages}
+        const newChats = {...chats, [chatId]:newChat}
+        setChats(newChats)
         setPost(prev=>({...prev, message:""}))
         textFieldRef.current?.focus()
     }
@@ -43,7 +47,6 @@ function Form({setMessageList})
                 value={post.message}
                 onChange={changeMessage}
                 size="small"
-                //autoFocus={true}
                 inputRef={textFieldRef}
             />
             <Button onClick={saveMessage} variant="outlined" size="small">Отправить</Button>

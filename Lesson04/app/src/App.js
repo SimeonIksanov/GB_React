@@ -1,51 +1,57 @@
 import './App.css';
 import Form from './Form'
-import Message from './Message'
 import ChatList from './ChatList';
-
 import Grid from '@mui/material/Grid';
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { Navigate, useParams } from 'react-router-dom';
+import MessageList from './MessageList';
 
-function App() {
-  const [messageList, setMessageList] = useState([]);
-  const [chatList, setChatList] = useState([{"id": 1, "name":"Chat01"},{"id": 2, "name":"Chat02"}])
+function App({chats, setChats}) {
+  const params = useParams()
 
   useEffect(
     () => {
-      if (messageList.length > 0) {
-        let lastMessage = messageList[messageList.length - 1];
+      if (chats[params.chatId]?.messages.length > 0) {
+        let lastMessage = chats[params.chatId].messages[chats[params.chatId].messages.length - 1];
         if (lastMessage.sender === 'human') {
           setTimeout(() => {
-            setMessageList(prev => [...prev, { author: "robot", message: `hey, ${lastMessage.author}`, sender: 'robot' }]);
+            const newMessages = [...chats[params.chatId].messages, {"text":`hew, ${lastMessage.author}`, "author":'robot', "sender":"robot"} ]
+            const newChat = {...chats[params.chatId], messages: newMessages}
+            const newChats = {...chats, [params.chatId]:newChat}
+            setChats(newChats)
           }, 1500);
         }
       }
     },
-    [messageList]
+    [chats]
   );
+
+  if (!params.chatId || !chats[params.chatId]){
+    return <Navigate replace to="/nochats" />
+  }
 
   return (
     <div className="App">
       <Grid container spacing={2}>
         <Grid item xs={2} minHeight="100vh">
 
-          <ChatList chatList={chatList}/>
+          <ChatList chats={chats} chatId={params.chatId}/>
 
         </Grid>
         <Grid item xs={10}>
-          <Grid container direction="column"  alignItems="center" spacing={1}>
+          <Grid container direction="column" alignItems="center" spacing={1}>
             <Grid item xs={12}>
-              
-              <Form setMessageList={setMessageList} />
+
+              <Form chats={chats} chatId={params.chatId} setChats={setChats}/>
 
             </Grid>
             <Grid item xs={12}>
 
-              <div className='Messages'>
-                {messageList.map((item, index) => <Message author={item.author} message={item.message} sender={item.sender} />)}
+              <div>
+                <MessageList messages={chats[params.chatId]?.messages} />
               </div>
-              
+
             </Grid>
           </Grid>
         </Grid>
