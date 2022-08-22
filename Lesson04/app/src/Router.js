@@ -4,6 +4,8 @@ import Chats from "./Chats";
 import Profile from "./Profile";
 import Home from "./Home";
 import NoChat from "./NoChat";
+import ChatManager from "./ChatManager";
+
 import { useState } from "react";
 
 const initialChats = {
@@ -28,6 +30,7 @@ function Router() {
                     <Route path=":chatId" element={<Chats chats={chats} setChats={setChats} />} />
                 </Route>
                 <Route exact path="/nochats" element={<NoChat chats={chats} chatId="0"/>} />
+                <Route path="/chatmanager" element={<ChatManager chats={chats} setChats={setChats} />} />
                 <Route exact path="/" element={<Home />} />
                 <Route path="*" element={<h3>404 page not found</h3>} />
             </Routes>
