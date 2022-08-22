@@ -1,4 +1,4 @@
-import './App.css';
+import './Chats.css';
 import Form from './Form'
 import ChatList from './ChatList';
 import Grid from '@mui/material/Grid';
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { Navigate, useParams } from 'react-router-dom';
 import MessageList from './MessageList';
 
-function App({chats, setChats}) {
+function Chats({chats, setChats}) {
   const params = useParams()
 
   useEffect(
@@ -16,7 +16,7 @@ function App({chats, setChats}) {
         let lastMessage = chats[params.chatId].messages[chats[params.chatId].messages.length - 1];
         if (lastMessage.sender === 'human') {
           setTimeout(() => {
-            const newMessages = [...chats[params.chatId].messages, {"text":`hew, ${lastMessage.author}`, "author":'robot', "sender":"robot"} ]
+            const newMessages = [...chats[params.chatId].messages, {"text":`hey, ${lastMessage.author}`, "author":'robot', "sender":"robot"} ]
             const newChat = {...chats[params.chatId], messages: newMessages}
             const newChats = {...chats, [params.chatId]:newChat}
             setChats(newChats)
@@ -32,7 +32,7 @@ function App({chats, setChats}) {
   }
 
   return (
-    <div className="App">
+    <div className="Chats">
       <Grid container spacing={2}>
         <Grid item xs={2} minHeight="100vh">
 
@@ -48,9 +48,7 @@ function App({chats, setChats}) {
             </Grid>
             <Grid item xs={12}>
 
-              <div>
                 <MessageList messages={chats[params.chatId]?.messages} />
-              </div>
 
             </Grid>
           </Grid>
@@ -60,4 +58,4 @@ function App({chats, setChats}) {
   );
 }
 
-export default App;
+export default Chats;

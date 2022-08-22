@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App";
+import Chats from "./Chats";
 import Profile from "./Profile";
 import Home from "./Home";
 import NoChat from "./NoChat";
@@ -24,8 +24,8 @@ function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/chats" element={<App chats={chats} setChats={setChats} />}>
-                    <Route path=":chatId" element={<App chats={chats} setChats={setChats} />} />
+                <Route path="/chats" element={<Chats chats={chats} setChats={setChats} />}>
+                    <Route path=":chatId" element={<Chats chats={chats} setChats={setChats} />} />
                 </Route>
                 <Route exact path="/nochats" element={<NoChat chats={chats} chatId="0"/>} />
                 <Route exact path="/" element={<Home />} />
