@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
-import Router from './Router';
-import './index.css';
-import store from './store';
+import Router from './Routers/Router';
+import './Assets/Styles/index.css';
+import store from './Store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

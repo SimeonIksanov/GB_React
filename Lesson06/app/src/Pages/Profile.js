@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { swap } from './checkboxSlice'
+import { swap } from '../Store/checkboxSlice'
 
 function Profile()
 {

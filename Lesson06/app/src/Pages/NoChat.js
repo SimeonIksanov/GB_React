@@ -1,4 +1,4 @@
-import ChatList from "./ChatList";
+import ChatList from "../Components/ChatList";
 
 function NoChat({chats}) {
     return(

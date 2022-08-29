@@ -1,11 +1,11 @@
-import './Chats.css';
-import Form from './Form'
-import ChatList from './ChatList';
+import '../Assets/Styles/Chats.css';
+import Form from '../Components/Form'
+import ChatList from '../Components/ChatList';
 import Grid from '@mui/material/Grid';
 
 import { useEffect } from "react";
 import { Navigate, useParams } from 'react-router-dom';
-import MessageList from './MessageList';
+import MessageList from '../Components/MessageList';
 
 function Chats({chats, setChats}) {
   const params = useParams()

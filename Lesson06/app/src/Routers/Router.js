@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Chats from "./Chats";
-import Profile from "./Profile";
-import Home from "./Home";
-import NoChat from "./NoChat";
-import ChatManager from "./ChatManager";
+import Chats from "../Pages/Chats";
+import Profile from "../Pages/Profile";
+import Home from "../Pages/Home";
+import NoChat from "../Pages/NoChat";
+import ChatManager from "../Pages/ChatManager";
 
 import { useState } from "react";
 

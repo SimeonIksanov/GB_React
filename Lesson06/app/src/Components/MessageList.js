@@ -1,4 +1,4 @@
-import './MessageList.css';
+import '../Assets/Styles/MessageList.css';
 
 function MessageList({messages})
 {
