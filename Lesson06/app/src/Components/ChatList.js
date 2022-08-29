@@ -4,9 +4,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux'
 
-function ChatList({chats, chatId})
+// function ChatList({chats, chatId})
+function ChatList({chatId})
 {
+    const chats = useSelector(state => state.chats)
     return (
         <div className='ChatList'>
             Chat List

@@ -1,17 +1,19 @@
-function ChatManager({chats, setChats})
+import { useDispatch, useSelector } from 'react-redux'
+
+function ChatManager()
 {
+    const chats = useSelector(state=>state.chats);
+    const dispatch = useDispatch();
+
     const removeChat = (event)=>
     {
-        let chatid = event.target.id
-        let newChats = {...chats}
-        delete newChats[chatid]
-        setChats(newChats)
+        dispatch({type:'chats/removeChat', payload:{id: event.target.id}})
     }
 
     const addChat = (event) =>
     {
         let nextId = Object.keys(chats).length>0 ? (Math.max.apply(null, Object.keys(chats))+1) : 1
-        setChats({...chats, [nextId]:{"name": `Chat${nextId}`, "messages":[]}})
+        dispatch({type:"chats/addChat", payload:{"name": `Chat${nextId}`}})
     }
 
     return (

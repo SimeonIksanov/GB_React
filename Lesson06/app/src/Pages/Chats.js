@@ -5,9 +5,13 @@ import Grid from '@mui/material/Grid';
 
 import { useEffect } from "react";
 import { Navigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
 import MessageList from '../Components/MessageList';
+import { addMessage } from '../Store/chatsSlice';
 
-function Chats({chats, setChats}) {
+function Chats() {
+  const chats = useSelector(state => state.chats)
+  const dispatch = useDispatch()
   const params = useParams()
 
   useEffect(
@@ -16,19 +20,24 @@ function Chats({chats, setChats}) {
         let lastMessage = chats[params.chatId].messages[chats[params.chatId].messages.length - 1];
         if (lastMessage.sender === 'human') {
           setTimeout(() => {
-            const newMessages = [...chats[params.chatId].messages, {"text":`hey, ${lastMessage.author}`, "author":'robot', "sender":"robot"} ]
-            const newChat = {...chats[params.chatId], messages: newMessages}
-            const newChats = {...chats, [params.chatId]:newChat}
-            setChats(newChats)
+            const newMessage = {"text":`hey, ${lastMessage.author}`, "author":'robot', "sender":"robot"}
+            dispatch(addMessage({"chatId":params.chatId, "message": newMessage}))
           }, 1500);
         }
       }
     },
-    [chats, params.chatId, setChats]
+    [chats, params.chatId, dispatch]
   );
 
   if (!params.chatId || !chats[params.chatId]){
     return <Navigate replace to="/nochats" />
+  }
+
+  const saveNewMessage = (message) => {
+    dispatch(addMessage({
+      "chatId": params.chatId,
+      "message": message
+    }))
   }
 
   return (
@@ -36,14 +45,14 @@ function Chats({chats, setChats}) {
       <Grid container spacing={2}>
         <Grid item xs={2} minHeight="100vh">
 
-          <ChatList chats={chats} chatId={params.chatId}/>
+          <ChatList chatId={params.chatId}/>
 
         </Grid>
         <Grid item xs={10}>
           <Grid container direction="column" alignItems="center" spacing={1}>
             <Grid item xs={12}>
 
-              <Form chats={chats} chatId={params.chatId} setChats={setChats}/>
+              <Form sendMessage={saveNewMessage} />
 
             </Grid>
             <Grid item xs={12}>

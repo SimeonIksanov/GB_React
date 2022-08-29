@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useState , useRef, useEffect} from "react";
 
-function Form({chats, chatId, setChats})
+function Form({ sendMessage })
 {
     const [post, setPost] = useState({author:"", message:"", sender:'human'})
     const textFieldRef = useRef(null);
@@ -17,10 +17,7 @@ function Form({chats, chatId, setChats})
     {
         if (post.author === "" || post.message ==="") {return}
 
-        const newMessages = [...chats[chatId].messages, {"text":post.message, "author":post.author, "sender":"human"} ]
-        const newChat = {...chats[chatId], messages: newMessages}
-        const newChats = {...chats, [chatId]:newChat}
-        setChats(newChats)
+        sendMessage({"text":post.message, "author":post.author, "sender":"human"})
         setPost(prev=>({...prev, message:""}))
         textFieldRef.current?.focus()
     }
