@@ -4,7 +4,8 @@ import ChatList from '../Components/ChatList';
 import Grid from '@mui/material/Grid';
 
 import { useEffect } from "react";
-import { Navigate, useParams } from 'react-router-dom';
+// import { Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import MessageList from '../Components/MessageList';
 import { addMessage } from '../Store/chatsSlice';
@@ -30,9 +31,9 @@ function Chats() {
     [chats, params.chatId, dispatch]
   );
 
-  if (!params.chatId || !chats[params.chatId]){
-    return <Navigate replace to="/nochats" />
-  }
+  // if (!params.chatId || !chats[params.chatId]){
+  //   return <Navigate replace to="/nochats" />
+  // }
 
   const saveNewMessage = (message) => {
     dispatch(addMessage({
@@ -44,7 +45,7 @@ function Chats() {
   return (
     <div className="Chats">
       <Grid container spacing={2}>
-        <Grid item xs={2} minHeight="100vh">
+        <Grid item xs={2} minHeight="100vh" style={{backgroundColor: "#F5F5F5"}}>
 
           <ChatList chatId={params.chatId}/>
 
@@ -53,7 +54,12 @@ function Chats() {
           <Grid container direction="column" alignItems="center" spacing={1}>
             <Grid item xs={12}>
 
-              <Form sendMessage={saveNewMessage} />
+              {/* <Form sendMessage={saveNewMessage} /> */}
+              {
+                params.chatId && chats[params.chatId]
+                  ? <Form sendMessage={saveNewMessage} />
+                  : <div>Please Select Chat</div>
+              }
 
             </Grid>
             <Grid item xs={12}>

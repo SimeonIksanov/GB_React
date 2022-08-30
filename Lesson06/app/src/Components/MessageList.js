@@ -4,7 +4,7 @@ function MessageList({messages})
 {
     return (
         <div className='Message'>
-            {messages.map((item, index) => {
+            {messages?.map((item, index) => {
                 return (<div key={index}>
                 <span className='author'>{item.author}</span>
                 <span className='textMessage'>{item.text}</span>

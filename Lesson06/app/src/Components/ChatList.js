@@ -4,19 +4,33 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getChats } from '../Store/selectors';
+import { Button } from '@mui/material';
 
 function ChatList({chatId})
 {
-    const chats = useSelector(getChats)
+    const chats = useSelector(getChats);
+    const dispatch = useDispatch();
+
+    const removeChat = (event)=>
+    {
+        dispatch({type:'chats/removeChat', payload:{id: event.target.id}})
+    }
+
+    const addChat = (event) =>
+    {
+        let nextId = Object.keys(chats).length>0 ? (Math.max.apply(null, Object.keys(chats))+1) : 1
+        dispatch({type:"chats/addChat", payload:{"name": `Chat${nextId}`}})
+    }
+
     return (
         <div className='ChatList'>
             Chat List
             <List>
                 {Object.keys(chats).map((id, i) =>
                     (
-                        <ListItem disablePadding key={i}>
+                        <ListItem disablePadding key={i} secondaryAction={<Button id={id} onClick={removeChat}>del</Button>}>
                             <ListItemButton>
                                 <ListItemText>
                                     <Link to={`/chats/${id}`}>
@@ -31,6 +45,7 @@ function ChatList({chatId})
                     )
                 )}
             </List>
+            <Button onClick={addChat}>Add Chat</Button>
         </div>
       );
 }

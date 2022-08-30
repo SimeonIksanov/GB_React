@@ -4,7 +4,7 @@ import Chats from "../Pages/Chats";
 import Profile from "../Pages/Profile";
 import Home from "../Pages/Home";
 import NoChat from "../Pages/NoChat";
-import ChatManager from "../Pages/ChatManager";
+// import ChatManager from "../Pages/ChatManager";
 
 function Router() {
 
@@ -16,7 +16,7 @@ function Router() {
                     <Route path=":chatId" element={<Chats />} />
                 </Route>
                 <Route exact path="/nochats" element={<NoChat chatId="0"/>} />
-                <Route path="/chatmanager" element={<ChatManager />} />
+                {/* <Route path="/chatmanager" element={<ChatManager />} /> */}
                 <Route exact path="/" element={<Home />} />
                 <Route path="*" element={<h3>404 page not found</h3>} />
             </Routes>
