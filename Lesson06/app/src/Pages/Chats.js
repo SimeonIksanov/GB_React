@@ -44,15 +44,15 @@ function Chats() {
 
   return (
     <div className="Chats">
-      <Grid container spacing={2}>
-        <Grid item xs={2} minHeight="100vh" style={{backgroundColor: "#F5F5F5"}}>
+      <Grid container spacing={0}>
+        <Grid item xs={4} sm={3} md={2} lg={1} minHeight="100vh" style={{backgroundColor: "#F5F5F5"}}>
 
           <ChatList chatId={params.chatId}/>
 
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Grid container direction="column" alignItems="center" spacing={1}>
-            <Grid item xs={12}>
+            <Grid item>
 
               {/* <Form sendMessage={saveNewMessage} /> */}
               {
@@ -62,7 +62,7 @@ function Chats() {
               }
 
             </Grid>
-            <Grid item xs={12}>
+            <Grid item>
 
                 <MessageList messages={chats[params.chatId]?.messages} />
 

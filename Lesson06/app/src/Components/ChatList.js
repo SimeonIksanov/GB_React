@@ -30,18 +30,17 @@ function ChatList({chatId})
             <List>
                 {Object.keys(chats).map((id, i) =>
                     (
-                        <ListItem disablePadding key={i} secondaryAction={<Button id={id} onClick={removeChat}>del</Button>}>
-                            <ListItemButton>
-                                <ListItemText>
-                                    <Link to={`/chats/${id}`}>
-                                        <b style={{ color: id === chatId ? "#000000" : "grey" }}>
-                                            {chats[id].name}
-                                        </b>
-                                    </Link>
-                                </ListItemText>
-                            </ListItemButton>
-                            
-                        </ListItem>
+                        <Link to={`/chats/${id}`}>
+                            <ListItem disablePadding key={i} secondaryAction={<Button id={id} onClick={removeChat}>del</Button>}>
+                                <ListItemButton>
+                                    <ListItemText>
+                                            <b style={{ color: id === chatId ? "#000000" : "grey" }}>
+                                                {chats[id].name}
+                                            </b>
+                                    </ListItemText>
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     )
                 )}
             </List>
