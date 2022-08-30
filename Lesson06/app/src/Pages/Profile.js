@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { swap } from '../Store/checkboxSlice'
+import { getCheckboxValue } from '../Store/selectors'
 
 function Profile()
 {
-    const value = useSelector(state => state.checkbox.value)
+    const value = useSelector(getCheckboxValue)
     const dispatch = useDispatch()
 
     return (

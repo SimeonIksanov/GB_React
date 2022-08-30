@@ -1,8 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { getChats } from '../Store/selectors';
 
 function ChatManager()
 {
-    const chats = useSelector(state=>state.chats);
+    const chats = useSelector(getChats);
     const dispatch = useDispatch();
 
     const removeChat = (event)=>

@@ -8,9 +8,10 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import MessageList from '../Components/MessageList';
 import { addMessage } from '../Store/chatsSlice';
+import { getChats } from '../Store/selectors';
 
 function Chats() {
-  const chats = useSelector(state => state.chats)
+  const chats = useSelector(getChats)
   const dispatch = useDispatch()
   const params = useParams()
 
