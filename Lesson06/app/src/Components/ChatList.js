@@ -30,8 +30,8 @@ function ChatList({chatId})
             <List>
                 {Object.keys(chats).map((id, i) =>
                     (
-                        <Link to={`/chats/${id}`}>
-                            <ListItem disablePadding key={i} secondaryAction={<Button id={id} onClick={removeChat}>del</Button>}>
+                        <Link key={i} to={`/chats/${id}`}>
+                            <ListItem disablePadding secondaryAction={<Button id={id} onClick={removeChat}>del</Button>}>
                                 <ListItemButton>
                                     <ListItemText>
                                             <b style={{ color: id === chatId ? "#000000" : "grey" }}>
