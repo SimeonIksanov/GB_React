@@ -1,15 +1,13 @@
 import '../Assets/Styles/Chats.css';
 import Form from '../Components/Form'
-import ChatList from '../Components/ChatList';
 import Grid from '@mui/material/Grid';
+import MessageList from '../Components/MessageList';
+import ChatListComponent from '../Components/ChatListComponent';
 
-import { useEffect } from "react";
 // import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import MessageList from '../Components/MessageList';
-import { addMessage, addMessageThunk } from '../Store/chatsSlice';
-
+import { addMessageThunk } from '../Store/chatsSlice';
 import { getChats } from '../Store/selectors';
 
 function Chats() {
@@ -33,7 +31,7 @@ function Chats() {
       <Grid container spacing={0}>
         <Grid item xs={4} sm={3} md={2} lg={1} minHeight="100vh" style={{backgroundColor: "#F5F5F5"}}>
 
-          <ChatList chatId={params.chatId}/>
+          <ChatListComponent chatId={params.chatId}/>
 
         </Grid>
         <Grid item xs={8}>
