@@ -6,7 +6,6 @@ export const addMessageThunk = createAsyncThunk(
         thunkAPI.dispatch(addMessage(args))
         if (args.message.sender==='human')
         {
-            // return {"chatId":args.chatId, "message": {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"}};
             setTimeout(() => {
                 thunkAPI.dispatch(addMessage({"chatId":args.chatId, "message": {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"}}))
             }, 2000);
