@@ -1,8 +1,8 @@
 import '../Assets/Styles/Chats.css';
-import Form from '../Components/Form'
 import Grid from '@mui/material/Grid';
 import MessageList from '../Components/MessageList';
 import ChatListComponent from '../Components/ChatListComponent';
+import FormComponent from '../Components/FormComponent';
 
 // import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -41,7 +41,7 @@ function Chats() {
               {/* <Form sendMessage={saveNewMessage} /> */}
               {
                 params.chatId && chats[params.chatId]
-                  ? <Form sendMessage={saveNewMessage} />
+                  ? <FormComponent sendMessage={saveNewMessage} />
                   : <div>Please Select Chat</div>
               }
 
