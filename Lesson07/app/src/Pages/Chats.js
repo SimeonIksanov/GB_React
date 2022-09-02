@@ -8,7 +8,8 @@ import { useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import MessageList from '../Components/MessageList';
-import { addMessage } from '../Store/chatsSlice';
+import { addMessage, addMessageThunk } from '../Store/chatsSlice';
+
 import { getChats } from '../Store/selectors';
 
 function Chats() {
@@ -16,27 +17,33 @@ function Chats() {
   const dispatch = useDispatch()
   const params = useParams()
 
-  useEffect(
-    () => {
-      if (chats[params.chatId]?.messages.length > 0) {
-        let lastMessage = chats[params.chatId].messages[chats[params.chatId].messages.length - 1];
-        if (lastMessage.sender === 'human') {
-          setTimeout(() => {
-            const newMessage = {"text":`hey, ${lastMessage.author}`, "author":'robot', "sender":"robot"}
-            dispatch(addMessage({"chatId":params.chatId, "message": newMessage}))
-          }, 1500);
-        }
-      }
-    },
-    [chats, params.chatId, dispatch]
-  );
+  // useEffect(
+  //   () => {
+  //     if (chats[params.chatId]?.messages.length > 0) {
+  //       let lastMessage = chats[params.chatId].messages[chats[params.chatId].messages.length - 1];
+  //       if (lastMessage.sender === 'human') {
+  //         setTimeout(() => {
+  //           const newMessage = {"text":`hey, ${lastMessage.author}`, "author":'robot', "sender":"robot"}
+  //           dispatch(addMessage({"chatId":params.chatId, "message": newMessage}))
+  //         }, 1500);
+  //       }
+  //     }
+  //   },
+  //   [chats, params.chatId, dispatch]
+  // );
 
   // if (!params.chatId || !chats[params.chatId]){
   //   return <Navigate replace to="/nochats" />
   // }
 
+  // const saveNewMessage = (message) => {
+  //   dispatch(addMessage({
+  //     "chatId": params.chatId,
+  //     "message": message
+  //   }))
+  // }
   const saveNewMessage = (message) => {
-    dispatch(addMessage({
+    dispatch(addMessageThunk({
       "chatId": params.chatId,
       "message": message
     }))
