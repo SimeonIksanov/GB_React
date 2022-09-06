@@ -12,9 +12,9 @@ function Home()
                 <li>
                     <Link to="/chats">chats</Link>
                 </li>
-                {/* <li>
-                    <Link to="/chatmanager">chat manager</Link>
-                </li> */}
+                <li>
+                    <Link to="/ApiCalls">Learning Api calls</Link>
+                </li>
             </ul>
         </div>
     )

@@ -4,15 +4,18 @@ import storage from 'redux-persist/lib/storage'
 
 import checkboxReducer from './checkboxSlice'
 import chatsReducer from './chatsSlice'
+import apicallsReducer from './apiCallsSlice'
 
 const persistConfig = {
     key: 'root',
     storage,
+    whitelist:['chats']
 }
 
 const reducers = combineReducers({
     chats: chatsReducer,
-    checkbox: checkboxReducer
+    checkbox: checkboxReducer,
+    apicalls: apicallsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers)
