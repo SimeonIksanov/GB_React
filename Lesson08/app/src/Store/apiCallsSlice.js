@@ -4,7 +4,7 @@ const API_URL = "https://jsonplaceholder.typicode.com/users";
 
 export const getUsersThunk = createAsyncThunk(
     'apicallsThunk',
-    async (args, thunkApi) => {
+    async (args, {rejectWithValue}) => {
         try {
             const response = await fetch(API_URL);
             if (!response.ok)
@@ -12,9 +12,9 @@ export const getUsersThunk = createAsyncThunk(
                 throw new Error(`Async Request failed with status ${response.status}`);
             }
             const result = await response.json();
-            thunkApi.dispatch(getUsers(result));
+            return result;
         } catch (err) {
-            thunkApi.dispatch(setError(err.message));
+            throw rejectWithValue(err.message);
         }
     }
 )
@@ -27,12 +27,7 @@ export const ApiCallsSlice = createSlice({
         "error": ""
     },
     reducers: {
-        getUsers: (state, action) => {
-            state.data = action.payload;
-        },
-        setError: (state, action) => {
-            state.error = action.payload
-        },
+        //
     },
     extraReducers: {
         [getUsersThunk.pending]: (state, action) => {
@@ -41,6 +36,7 @@ export const ApiCallsSlice = createSlice({
         },
         [getUsersThunk.fulfilled]: (state, action) => {
             state.loading = false;
+            state.data = action.payload;
         },
         [getUsersThunk.rejected]: (state, action) => {
             state.error = action.payload;
