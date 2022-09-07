@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import {useDispatch} from 'react-redux'
+import { Navigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useAuth } from '../Hooks/useAuth';
 import { signUpThunk } from '../Store/userAuthSlice';
 
 export default function SignUp()
@@ -20,33 +22,35 @@ export default function SignUp()
     const handleButtonClick = ()=> {email !== '' && password !== '' && password === password2 && doSignUp() }
     
     return (
-        <div style={{color:'#aaa', display: 'flex', flexDirection: 'column', width: '100', alignItems: 'center', height:'100'}}>
-            <h1>Register</h1>
-            <label htmlFor='email'> Email </label>
-            <input
-                id="email"
-                type = "text"
-                value = {email}
-                onChange = {handleChangeEmail}
-            />
+        useAuth().isAuth ? 
+            <div style={{color:'#aaa', display: 'flex', flexDirection: 'column', width: '100', alignItems: 'center', height:'100'}}>
+                <h1>Register</h1>
+                <label htmlFor='email'> Email </label>
+                <input
+                    id="email"
+                    type = "text"
+                    value = {email}
+                    onChange = {handleChangeEmail}
+                />
 
-            <label htmlFor='pass'> Password </label>
-            <input
-                id="pass"
-                type = "password"
-                value = {password}
-                onChange = {handleChangePassword}
-            />
+                <label htmlFor='pass'> Password </label>
+                <input
+                    id="pass"
+                    type = "password"
+                    value = {password}
+                    onChange = {handleChangePassword}
+                />
 
-            <label htmlFor='pass2'> Repeate Password </label>
-            <input
-                id="pass2"
-                type = "password"
-                value = {password2}
-                onChange = {handleChangePassword2}
-                style={(password !== password2) ? {color:'#ff8833'}:{color:'#000'}}
-            />
-            <button onClick={handleButtonClick} style={{width:'147px', marginTop:'10px'}}>Go</button>
-        </div>
+                <label htmlFor='pass2'> Repeate Password </label>
+                <input
+                    id="pass2"
+                    type = "password"
+                    value = {password2}
+                    onChange = {handleChangePassword2}
+                    style={(password !== password2) ? {color:'#ff8833'}:{color:'#000'}}
+                />
+                <button onClick={handleButtonClick} style={{width:'147px', marginTop:'10px'}}>Go</button>
+            </div>
+        : <Navigate to="/" />
     )
 }

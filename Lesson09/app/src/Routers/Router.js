@@ -3,7 +3,6 @@ import Chats from "../Pages/Chats";
 import Profile from "../Pages/Profile";
 import Home from "../Pages/Home";
 import NoChat from "../Pages/NoChat";
-// import ChatManager from "../Pages/ChatManager";
 import ApiCalls from "../Pages/ApiCalls"
 import SignUp from "../Pages/SignUp";
 import SignIn from "../Pages/SignIn";
