@@ -35,6 +35,13 @@ export const signInThunk = createAsyncThunk(
     }
 )
 
+export const signOutThunk = createAsyncThunk(
+    'user/SignOutThunk',
+    async () => {
+        return null;
+    }
+)
+
 export const userAuthSlice = createSlice({
     name: "user",
     initialState: {
@@ -52,6 +59,10 @@ export const userAuthSlice = createSlice({
         [signInThunk.fulfilled]: (state, action) => {
             state.email = action.payload.email;
             state.id = action.payload.id;
+        },
+        [signOutThunk.fulfilled]: (state, action) => {
+            state.email = null;
+            state.id = null;
         },
     }
 })

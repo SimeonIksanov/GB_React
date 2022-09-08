@@ -6,6 +6,7 @@ import NoChat from "../Pages/NoChat";
 import ApiCalls from "../Pages/ApiCalls"
 import SignUp from "../Pages/SignUp";
 import SignIn from "../Pages/SignIn";
+import SignOut from "../Pages/SignOut";
 
 function Router() {
 
@@ -14,6 +15,7 @@ function Router() {
             <Routes>
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/signin" element={<SignIn />} />
+                <Route path="/signout" element={<SignOut />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/chats" element={<Chats />}>
                     <Route path=":chatId" element={<Chats />} />

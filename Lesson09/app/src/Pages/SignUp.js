@@ -22,7 +22,7 @@ export default function SignUp()
     const handleButtonClick = ()=> {email !== '' && password !== '' && password === password2 && doSignUp() }
     
     return (
-        useAuth().isAuth ? 
+        !useAuth().isAuth ? 
             <div style={{color:'#aaa', display: 'flex', flexDirection: 'column', width: '100', alignItems: 'center', height:'100'}}>
                 <h1>Register</h1>
                 <label htmlFor='email'> Email </label>

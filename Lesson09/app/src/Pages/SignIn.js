@@ -20,9 +20,9 @@ export default function SignIn()
     const handleButtonClick = ()=> {email !== '' && password !== '' && doSignIn() }
     
     return (
-        useAuth().isAuth ? 
+        !useAuth().isAuth ? 
             <div style={{color:'#aaa', display: 'flex', flexDirection: 'column', width: '100', alignItems: 'center', height:'100'}}>
-                <h1>Register</h1>
+                <h1>Sign In</h1>
                 <label htmlFor='email'> Email </label>
                 <input
                     id="email"

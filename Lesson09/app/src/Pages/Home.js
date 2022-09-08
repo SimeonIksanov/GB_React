@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../Hooks/useAuth";
 
 function Home()
 {
@@ -15,6 +16,11 @@ function Home()
                 <li>
                     <Link to="/ApiCalls">Learning Api calls</Link>
                 </li>
+                {
+                    useAuth().isAuth
+                        ? <li><Link to="/signout">Sign Out</Link></li>
+                        : <><li><Link to="/signin">Sign In</Link></li><li><Link to="/signup">Sign Up</Link></li></>
+                }
             </ul>
         </div>
     )
