@@ -10,7 +10,8 @@ import userReducer from './userAuthSlice'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist:['chats']
+    whitelist:[]
+    // whitelist:['chats']
 }
 
 const reducers = combineReducers({

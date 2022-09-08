@@ -1,0 +1,14 @@
+header
+{
+    background-color: #acd;
+    display: flex;
+    padding: 5px;
+}
+header .headerItem
+{
+    padding: 5px;
+}
+header .rightItem
+{
+    margin-left: auto;
+}

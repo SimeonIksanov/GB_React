@@ -1,22 +1,30 @@
 import ChatList from './ChatList';
-
+import { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getChats } from '../Store/selectors';
+import { addChatWithThunk, deleteChatWithThunk, getChatListWithThunk } from '../Store/chatsSlice';
 
 function ChatListComponent({chatId})
 {
     const chats = useSelector(getChats);
     const dispatch = useDispatch();
+    const fetchChatList = () => {dispatch(getChatListWithThunk())}
+
+    useEffect(
+        fetchChatList,
+        [dispatch]        
+    )
 
     const removeChat = (event)=>
     {
-        dispatch({type:'chats/removeChat', payload:{id: event.target.id}})
+        dispatch(deleteChatWithThunk({id: event.target.id}))
+        fetchChatList()
     }
 
     const addChat = (event) =>
     {
-        let nextId = Object.keys(chats).length>0 ? (Math.max.apply(null, Object.keys(chats))+1) : 1
-        dispatch({type:"chats/addChat", payload:{"name": `Chat${nextId}`}})
+        dispatch(addChatWithThunk())
+        fetchChatList()
     }
 
     return (

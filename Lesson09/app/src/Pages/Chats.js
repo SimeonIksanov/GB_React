@@ -3,35 +3,47 @@ import Grid from '@mui/material/Grid';
 import MessageList from '../Components/MessageList';
 import ChatListComponent from '../Components/ChatListComponent';
 import FormComponent from '../Components/FormComponent';
-
+import {useEffect, useCallback} from 'react'
 // import { Navigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { addMessageThunk } from '../Store/chatsSlice';
+import { addMessageThunk, getMessageList } from '../Store/chatsSlice';
 import { getChats } from '../Store/selectors';
 
 function Chats() {
   const chats = useSelector(getChats)
   const dispatch = useDispatch()
   const params = useParams()
+  const chatId = params.chatId;
 
   // if (!params.chatId || !chats[params.chatId]){
   //   return <Navigate replace to="/nochats" />
   // }
+  const fetchChatMessages = useCallback((chatId) => {
+    if (chatId){
+      console.log(chatId)
+      dispatch(getMessageList(chatId));
+    }
+  },[dispatch, chatId])
 
   const saveNewMessage = (message) => {
     dispatch(addMessageThunk({
-      "chatId": params.chatId,
+      "chatId": chatId,
       "message": message
-    }))
+    }));
+    fetchChatMessages(chatId)
   }
+  useEffect(
+    () => {fetchChatMessages(chatId)},
+    [fetchChatMessages]
+  )
 
   return (
     <div className="Chats">
       <Grid container spacing={0}>
-        <Grid item xs={4} sm={3} md={2} lg={1} minHeight="100vh" style={{backgroundColor: "#F5F5F5"}}>
+        <Grid item xs={4} sm={3} md={2} lg={2} minHeight="97vh" style={{backgroundColor: "#F5F5F5"}}>
 
-          <ChatListComponent chatId={params.chatId}/>
+          <ChatListComponent chatId={chatId}/>
 
         </Grid>
         <Grid item xs={8}>
@@ -40,7 +52,7 @@ function Chats() {
 
               {/* <Form sendMessage={saveNewMessage} /> */}
               {
-                params.chatId && chats[params.chatId]
+                chatId && chats[chatId]
                   ? <FormComponent sendMessage={saveNewMessage} />
                   : <div>Please Select Chat</div>
               }
@@ -48,7 +60,7 @@ function Chats() {
             </Grid>
             <Grid item>
 
-                <MessageList messages={chats[params.chatId]?.messages} />
+                <MessageList messages={chats[chatId]?.messages} />
 
             </Grid>
           </Grid>
