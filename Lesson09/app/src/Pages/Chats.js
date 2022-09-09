@@ -21,7 +21,6 @@ function Chats() {
   // }
   const fetchChatMessages = useCallback((chatId) => {
     if (chatId){
-      console.log(chatId)
       dispatch(getMessageList(chatId));
     }
   },[dispatch, chatId])

@@ -8,13 +8,13 @@ export const addMessageThunk = createAsyncThunk(
         const messagesRef = collection(db, `Chats/${args.chatId}/Messages`);
         const newMessage = doc(messagesRef);
         await setDoc(newMessage, args.message);
-        // thunkAPI.dispatch(addMessage(args))
-        // if (args.message.sender==='human')
-        // {
-        //     setTimeout(() => {
-        //         thunkAPI.dispatch(addMessage({"chatId":args.chatId, "message": {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"}}))
-        //     }, 2000);
-        // }
+        if (args.message.sender==='human')
+        {
+            setTimeout(async () => {
+                await setDoc(doc(messagesRef), {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"});
+                // thunkAPI.dispatch(addMessage({"chatId":args.chatId, "message": {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"}}))
+            }, 2000);
+        }
     }
 )
 
@@ -28,11 +28,11 @@ export const getMessageList = createAsyncThunk(
             querySnapshot.forEach(
                 (doc) => messages.push(doc.data())
             )
+            return {chatId, messages};
         } catch (error) {
             console.log(error.message);
         }
         
-        return {chatId, messages};
     }
 )
 
@@ -45,10 +45,10 @@ export const getChatListWithThunk =  createAsyncThunk(
             querySnapshot.forEach((doc) => 
                 chatList[doc.id] = doc.data()
             )
+            return chatList;
         } catch (error) {
             console.warn(error.message)
         }
-        return chatList;
     }
 )
 
