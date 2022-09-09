@@ -8,7 +8,7 @@ export const addMessageThunk = createAsyncThunk(
         const messagesRef = collection(db, `Chats/${args.chatId}/Messages`);
         const newMessage = doc(messagesRef);
         await setDoc(newMessage, args.message);
-        if (args.message.sender==='human')
+        if (args.message.sender !== 'robot')
         {
             setTimeout(async () => {
                 await setDoc(doc(messagesRef), {"text":`I'm watching you, ${args.message.author}`, "author":'robot', "sender":"robot"});

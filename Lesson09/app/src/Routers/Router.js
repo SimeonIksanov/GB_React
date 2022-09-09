@@ -1,53 +1,48 @@
-import '../Assets/Styles/header.css'
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chats from "../Pages/Chats";
 import Profile from "../Pages/Profile";
 import Home from "../Pages/Home";
-import NoChat from "../Pages/NoChat";
+// import NoChat from "../Pages/NoChat";
 import ApiCalls from "../Pages/ApiCalls"
 import SignUp from "../Pages/SignUp";
 import SignIn from "../Pages/SignIn";
 import SignOut from "../Pages/SignOut";
-import { useAuth } from '../Hooks/useAuth';
+import PrivateRoute from './PrivateRoute';
+import HeaderLine from '../Components/HeaderLine'
 
 function Router() {
-    const user = useAuth()
+
     return (
         <>
             <BrowserRouter>
-                <header>
-                    <div className='headerItem'><Link to={'/'}>Home</Link></div>
-                    <div className='headerItem'><Link to="/chats">Chats</Link></div>
-                    <div className="rightItem headerItem">
-                        {
-                            user.isAuth
-                                ? <>
-                                    <span>{user.email}</span>
-                                    <Link className='headerItem' to={'/signout'}>SignOut</Link>
-                                  </>
-                                : <>
-                                    <Link className='headerItem' to={'/signin'}>SignIn</Link>
-                                    <Link to={'/signup'}>SignUp</Link>
-                                  </>
-                        }
-                    </div>
-                </header>
+                <HeaderLine />
                 <Routes>
-                    <Route path="/signup" element={<SignUp />} />
-                    <Route path="/signin" element={<SignIn />} />
-                    <Route path="/signout" element={<SignOut />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/chats" element={<Chats />}>
-                        <Route path=":chatId" element={<Chats />} />
+                    <Route path="/signup"     element={<SignUp />} />
+                    <Route path="/signin"     element={<SignIn />} />
+                    <Route path="/signout"    element={<SignOut />} />
+                    <Route path="/ApiCalls"   element={<ApiCalls />} />
+                    <Route path="/profile"    element={
+                            <PrivateRoute>
+                                <Profile />
+                            </PrivateRoute>}
+                    />
+                    <Route path="/chats"      element={
+                            <PrivateRoute>
+                                <Chats />
+                            </PrivateRoute>}
+                    >
+                        <Route path=":chatId" element={
+                                <PrivateRoute>
+                                    <Chats />
+                                </PrivateRoute>}
+                        />
                     </Route>
-                    <Route exact path="/nochats" element={<NoChat chatId="0"/>} />
-                    <Route path="/ApiCalls" element={<ApiCalls />} />
-                    <Route exact path="/" element={<Home />} />
-                    <Route path="*" element={<h3>404 page not found</h3>} />
+                    {/* <Route exact path="/nochats" element={<NoChat chatId="0"/>} /> */}
+                    <Route path="/"           element={<Home />} exact />
+                    <Route path="*"           element={<h3>404 page not found</h3>} />
                 </Routes>
             </BrowserRouter>
         </>
-        
     );
 }
 

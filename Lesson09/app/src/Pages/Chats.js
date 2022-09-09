@@ -16,9 +16,6 @@ function Chats() {
   const params = useParams()
   const chatId = params.chatId;
 
-  // if (!params.chatId || !chats[params.chatId]){
-  //   return <Navigate replace to="/nochats" />
-  // }
   const fetchChatMessages = useCallback((chatId) => {
     if (chatId){
       dispatch(getMessageList(chatId));
