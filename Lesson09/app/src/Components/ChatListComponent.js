@@ -1,5 +1,5 @@
 import ChatList from './ChatList';
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getChats } from '../Store/selectors';
 import { addChatWithThunk, deleteChatWithThunk, getChatListWithThunk } from '../Store/chatsSlice';

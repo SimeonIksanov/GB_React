@@ -20,7 +20,7 @@ function Chats() {
     if (chatId){
       dispatch(getMessageList(chatId));
     }
-  },[dispatch, chatId])
+  },[dispatch])
 
   const saveNewMessage = (message) => {
     dispatch(addMessageThunk({
@@ -31,7 +31,7 @@ function Chats() {
   }
   useEffect(
     () => {fetchChatMessages(chatId)},
-    [fetchChatMessages]
+    [fetchChatMessages, chatId]
   )
 
   return (
